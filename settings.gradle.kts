@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MyCloudMusic"
 include(":app")
- 
+include(":common")
