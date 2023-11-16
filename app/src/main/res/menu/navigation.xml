@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/music"
+        android:title="Music"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/feed"
+        android:title="Feed"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/Me"
+        android:title="Profile"
+        app:showAsAction="always" />
+</menu>

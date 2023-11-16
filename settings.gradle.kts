@@ -16,3 +16,6 @@ dependencyResolutionManagement {
 rootProject.name = "MyCloudMusic"
 include(":app")
 include(":common")
+include(":feed")
+include(":music")
+include(":profile")
