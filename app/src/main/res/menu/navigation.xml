@@ -5,13 +5,16 @@
     <item
         android:id="@+id/music"
         android:title="Music"
+        android:icon="@drawable/baseline_queue_music_24"
         app:showAsAction="always" />
     <item
         android:id="@+id/feed"
         android:title="Feed"
+        android:icon="@drawable/baseline_rss_feed_24"
         app:showAsAction="always" />
     <item
         android:id="@+id/Me"
         android:title="Profile"
+        android:icon="@drawable/baseline_sentiment_very_satisfied_24"
         app:showAsAction="always" />
 </menu>
