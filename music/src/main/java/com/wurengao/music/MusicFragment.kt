@@ -5,8 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wurengao.common.abs.BaseFragment
+import com.wurengao.common.net.NetworkModule
+import com.wurengao.music.api.MusicService
+import com.wurengao.music.repository.MusicRepository
 
 /**
  * Created by wurengao on 2023/11/16
@@ -32,10 +36,24 @@ class MusicFragment : BaseFragment() {
     }
 
     override fun initData() {
-        vm = ViewModelProvider(this).get(MusicViewModel::class.java)
-        vm.getMusics().observe(this) {
-            tv.text = vm.getMusics().value ?: "load failed"
-        }
+//        vm = ViewModelProvider(this).get(MusicViewModel::class.java)
+//        vm.getMusics().observe(this) {
+//            Log.d(TAG, "observe: $it")
+//            if (TextUtils.isEmpty(it)) {
+//                tv.text = "loading"
+//            } else {
+//                tv.text = it
+//            }
+//        }
+
+        val service = NetworkModule.provideRetrofit().create(MusicService::class.java)
+        val repository = MusicRepository(service)
+
+        vm = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return MusicViewModel(repository) as T
+            }
+        }).get(MusicViewModel::class.java)
     }
 
     override fun initListener() {

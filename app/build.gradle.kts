@@ -28,4 +28,5 @@ dependencies {
     implementation(project(mapOf("path" to ":feed")))
     implementation(project(mapOf("path" to ":music")))
     implementation(project(mapOf("path" to ":profile")))
+    implementation("androidx.core:core-ktx:+")
 }

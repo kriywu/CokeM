@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 
 
 abstract class BaseFragment : Fragment() {
-    private val TAG = "BaseFragment"
+    protected val TAG = "BaseFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
