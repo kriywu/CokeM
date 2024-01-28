@@ -13,6 +13,7 @@ import com.wurengao.common.ext.show
 import com.wurengao.common.model.ListResponse
 import com.wurengao.common.model.Music
 import com.wurengao.music.R
+import com.wurengao.music.player.MusicPlayerActivity
 
 class MusicViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val titleView: TextView by lazy { itemView.findViewById(R.id.title) }
@@ -35,10 +36,14 @@ class MusicListAdapter : RecyclerView.Adapter<MusicViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
+        glogd("onBindViewHolder")
         val data = listData[position]
         holder.titleView.text = data.title
         holder.messageView.text = data.singer.nickname
         holder.iconView.show(data.icon)
+        holder.itemView.setOnClickListener {
+            MusicPlayerActivity.startActivity(it.context)
+        }
     }
 
     override fun getItemCount(): Int {

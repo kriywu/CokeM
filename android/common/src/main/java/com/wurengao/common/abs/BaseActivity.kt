@@ -35,10 +35,12 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun initViewModel(vm: BaseViewModel) {
         vm.failedResponse.observe(this@BaseActivity) {
+            gloge(it.message ?: "")
             it.message.longToast()
         }
 
         vm.exception.observe(this@BaseActivity) {
+            gloge(it.message ?: "")
             it.message.longToast()
         }
     }

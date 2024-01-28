@@ -12,7 +12,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         app:shapeAppearanceOverlay="@style/RoundedCornerImageStyle"
-        android:src="@drawable/default_avatar"
+        android:src="@mipmap/default_avatar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

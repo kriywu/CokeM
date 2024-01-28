@@ -8,6 +8,6 @@ fun ImageView.show(data: String?) {
     if (data.isNullOrEmpty()) return
 
     load(ResourceUtil.resourceUri(data)) {
-        placeholder(R.drawable.default_avatar)
+        placeholder(R.mipmap.default_avatar)
     }
 }

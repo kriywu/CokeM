@@ -7,6 +7,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyCloudMusic" />
+        android:theme="@style/Theme.MyCloudMusic">
+        <activity
+            android:name=".player.MusicPlayerActivity"
+            android:exported="false" />
+    </application>
 
 </manifest>
