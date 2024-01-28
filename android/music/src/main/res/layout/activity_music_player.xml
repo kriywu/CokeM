@@ -19,14 +19,38 @@
         android:orientation="vertical">
 
         <!--toolbar-->
-<!--        <include layout="@layout/toolbar_transparent_light" />-->
+        <!--        <include layout="@layout/toolbar_transparent_light" />-->
 
-        <ImageView
-            android:layout_gravity="center"
-            android:src="@mipmap/cd_background"
-            android:layout_width="240dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+        <FrameLayout
+            android:id="@+id/cd"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="110dp">
+
+                <ImageView
+                    android:id="@+id/cd_avatar"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/default_avatar" />
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/cd_background" />
+
+
+        </FrameLayout>
+
 
         <!--迷你控制容器-->
         <LinearLayout

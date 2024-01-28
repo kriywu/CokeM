@@ -42,7 +42,7 @@ class MusicListAdapter : RecyclerView.Adapter<MusicViewHolder>() {
         holder.messageView.text = data.singer.nickname
         holder.iconView.show(data.icon)
         holder.itemView.setOnClickListener {
-            MusicPlayerActivity.startActivity(it.context)
+            MusicPlayerActivity.startActivity(it.context, data)
         }
     }
 

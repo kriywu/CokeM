@@ -1,5 +1,8 @@
 package com.wurengao.common.model
 
+import android.os.Parcel
+import android.os.Parcelable
+
 /**
  * Created by wurengao on 2023/12/22
  * @author wurengao@bytedance.com
@@ -8,7 +11,7 @@ package com.wurengao.common.model
 /**
  * 单曲模型
  */
-class Music : Common() {
+class Music() : Common(), Parcelable {
     /**
      * 标题
      */
@@ -66,7 +69,7 @@ class Music : Common() {
      *
      * 用来将歌手对象拆分到多个字段，方便在一张表存储，和查询
      */
-    lateinit var singerId: String
+    var singerId: String? = null
 
     /**
      * 歌手名称
@@ -80,7 +83,7 @@ class Music : Common() {
     var singerIcon: String? = null
     fun localConvert() {
         val user = User()
-        user.id = singerId
+        user.id = singerId ?: ""
         user.nickname = singerNickname
         user.icon = singerIcon
         singer = user
@@ -128,6 +131,47 @@ class Music : Common() {
         result = 31 * result + (singerNickname?.hashCode() ?: 0)
         result = 31 * result + (singerIcon?.hashCode() ?: 0)
         return result
+    }
+
+
+    constructor(parcel: Parcel) : this() {
+        title = parcel.readString()
+        icon = parcel.readString()
+        uri = parcel.readString()
+        clicksCount = parcel.readInt()
+        commentsCount = parcel.readInt()
+        duration = parcel.readInt()
+        progress = parcel.readInt()
+        singerId = parcel.readString() ?: ""
+        singerNickname = parcel.readString()
+        singerIcon = parcel.readString()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(title)
+        parcel.writeString(icon)
+        parcel.writeString(uri)
+        parcel.writeInt(clicksCount)
+        parcel.writeInt(commentsCount)
+        parcel.writeInt(duration)
+        parcel.writeInt(progress)
+        parcel.writeString(singerId)
+        parcel.writeString(singerNickname)
+        parcel.writeString(singerIcon)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Music> {
+        override fun createFromParcel(parcel: Parcel): Music {
+            return Music(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Music?> {
+            return arrayOfNulls(size)
+        }
     }
 
 
