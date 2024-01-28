@@ -25,6 +25,16 @@ dependencies {
     api("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
+
+    //封装了RecyclerView
+    //提供更高层次的接口
+    //https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+//    api("com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7")
+
+
+
+    api("io.coil-kt:coil:2.1.0")  //https://github.com/coil-kt/coil
+
     //region room数据库
     //https://developer.android.google.cn/topic/libraries/architecture/room
     api("androidx.room:room-runtime:2.4.3")

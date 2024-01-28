@@ -2,6 +2,7 @@ package com.wurengao.music
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +15,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.wurengao.common.abs.BaseFragment
+import com.wurengao.common.ext.glogd
 import com.wurengao.common.model.ListResponse
+import com.wurengao.common.model.Meta
 import com.wurengao.common.model.Music
 import com.wurengao.common.net.NetworkModule
 import com.wurengao.music.api.MusicService
+import com.wurengao.music.list.MusicListAdapter
 import com.wurengao.music.repository.MusicRepository
 
 /**
@@ -26,31 +30,7 @@ import com.wurengao.music.repository.MusicRepository
  */
 
 
-class MusicViewHolder(itemView: View) : ViewHolder(itemView) {
-    val titleView: TextView by lazy { itemView.findViewById(R.id.title) }
-    val messageView: TextView by lazy { itemView.findViewById(R.id.message) }
 
-}
-
-class MusicListAdapter(private val listData: LiveData<ListResponse<Music>>): RecyclerView.Adapter<MusicViewHolder>() {
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicViewHolder {
-        val listItemView = LayoutInflater.from(parent.context).inflate(R.layout.music_list_item, parent, false)
-        val holder = MusicViewHolder(listItemView);
-        return holder
-    }
-
-    override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
-        holder.titleView.text = listData.value?.data?.data?.get(position)?.title ?: "un"
-        holder.messageView.text = listData.value?.data?.data?.get(position)?.singer.toString() ?: "un"
-    }
-
-    override fun getItemCount(): Int {
-        return listData.value?.data?.data?.size ?: 0
-    }
-
-}
 
 class MusicFragment : BaseFragment() {
 
@@ -61,12 +41,11 @@ class MusicFragment : BaseFragment() {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return MusicViewModel(repository) as T
             }
-        })[MusicViewModel::class.java]
+        })[MusicViewModel::class.java].apply { initViewModel(this) }
     }
 
-    private val listData: LiveData<ListResponse<Music>> by lazy { vm.songs() }
-
-
+    private val listData: LiveData<Meta<Music>?> by lazy { vm.songs() }
+    private val adapter: MusicListAdapter by lazy { MusicListAdapter() }
 
     private lateinit var listView: RecyclerView
 
@@ -81,12 +60,15 @@ class MusicFragment : BaseFragment() {
     override fun initView(view: View) {
         listView = view.findViewById(R.id.list)
         listView.layoutManager = LinearLayoutManager(this.context)
-        listView.adapter = MusicListAdapter(listData)
+        listView.adapter = adapter
     }
 
     override fun initData() {
         listData.observe(this) {
-            listView.adapter?.notifyDataSetChanged()
+            it?.data?.apply {
+                adapter.updateData(this)
+                adapter.notifyItemRangeChanged(0, this.size)
+            }
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.wurengao.common.vm.BaseViewModel
 
 
 abstract class BaseFragment : Fragment() {
@@ -78,5 +79,9 @@ abstract class BaseFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "${this.javaClass.simpleName} onDestroy: ")
+    }
+
+    fun initViewModel(viewModel: BaseViewModel) {
+        (activity as? BaseActivity)?.initViewModel(viewModel)
     }
 }

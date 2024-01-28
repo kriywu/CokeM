@@ -3,6 +3,10 @@ package com.wurengao.common.abs
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.wurengao.common.ext.gloge
+import com.wurengao.common.ext.longToast
+import com.wurengao.common.vm.BaseViewModel
+import kotlin.math.log
 
 /**
  * Created by wurengao on 2023/10/16
@@ -27,4 +31,15 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun initView();
 
     abstract fun initData();
+
+
+    fun initViewModel(vm: BaseViewModel) {
+        vm.failedResponse.observe(this@BaseActivity) {
+            it.message.longToast()
+        }
+
+        vm.exception.observe(this@BaseActivity) {
+            it.message.longToast()
+        }
+    }
 }

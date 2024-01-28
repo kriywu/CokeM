@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.wurengao.common.BaseAppContext
 import com.wurengao.common.ext.gloge
+import com.wurengao.common.vm.BaseViewModel
 import com.wurengao.music.repository.MusicRepository
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import java.lang.NullPointerException
 
 /**
  * Created by wurengao on 2023/11/20
@@ -18,18 +20,18 @@ import kotlinx.coroutines.flow.flow
 
 class MusicViewModel(
     private var repository: MusicRepository
-) : ViewModel() {
+) : BaseViewModel() {
     /**
      * 音乐列表
      */
     fun songs() = flow {
         val data = repository.songs()
         if (data.isSuccess()) {
-            emit(data)
+            emit(data.data)
         } else {
-           gloge("get songs failed")
+            failedResponse.value = data
         }
     }.catch {
-        gloge(it.message.toString())
+        exception.value = it
     }.asLiveData( )
 }
