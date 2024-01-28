@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">MyCloudMusic</string>
-    <string name="copyright">Copyright © %d RengaoWu. All Rights Reserved</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="skip">跳过 %d 秒</string>
-</resources>
