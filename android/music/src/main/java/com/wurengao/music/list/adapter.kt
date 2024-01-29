@@ -13,6 +13,7 @@ import com.wurengao.common.ext.show
 import com.wurengao.common.model.ListResponse
 import com.wurengao.common.model.Music
 import com.wurengao.music.R
+import com.wurengao.music.manager.MusicListManager
 import com.wurengao.music.player.MusicPlayerActivity
 
 class MusicViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -42,7 +43,9 @@ class MusicListAdapter : RecyclerView.Adapter<MusicViewHolder>() {
         holder.messageView.text = data.singer.nickname
         holder.iconView.show(data.icon)
         holder.itemView.setOnClickListener {
-            MusicPlayerActivity.startActivity(it.context, data)
+            MusicListManager.setData(listData)
+            MusicListManager.play(data)
+            MusicPlayerActivity.startActivity(it.context)
         }
     }
 
