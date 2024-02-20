@@ -110,4 +110,9 @@ class MusicPlayerActivity : BaseActivity() {
 
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        vm.onResume()
+    }
 }

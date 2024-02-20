@@ -1,5 +1,7 @@
 package com.wurengao.music.player
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wurengao.common.model.Music
@@ -27,17 +29,19 @@ class MusicPlayerViewModel: BaseViewModel() {
 
     fun previous() {
         _music.value = musicListManager.previousPlay()
-        _title.value = _music.value?.title
-        _message.value = _music.value?.singer?.nickname
         _process.value = 0f
-        _icon.value = _music.value?.icon
+        notifyDataChange()
     }
 
     fun next() {
         _music.value = musicListManager.nextPlay()
+        _process.value = 0f
+        notifyDataChange()
+    }
+
+    private fun notifyDataChange() {
         _title.value = _music.value?.title
         _message.value = _music.value?.singer?.nickname
-        _process.value = 0f
         _icon.value = _music.value?.icon
     }
 
@@ -47,4 +51,8 @@ class MusicPlayerViewModel: BaseViewModel() {
 
     }
 
+    fun onResume() {
+        _music.value = musicListManager.currentMusic()
+        notifyDataChange()
+    }
 }
